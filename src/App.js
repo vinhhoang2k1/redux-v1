@@ -1,19 +1,22 @@
 import React from 'react'
-import {useDispatch, useSelector} from 'react-redux' 
-import {increment, decrement} from './action/count'
+import {Routes, Route} from 'react-router-dom'
 
+import {ToastContainer, } from 'react-toastify'
+import Home from './page/Home'
+import  Edit from './page/Edit'
+import Header from './components/Header'
+import Add from './page/Add'
 function App() {
-    const count = useSelector(state => state.counter)
-    const isLogger = useSelector(state => state.isLogger);
-    console.log(count);
-    const dispatch = useDispatch();
-    console.log(increment());
-    return ( <div >
-            <h1>count {count}</h1>
-            <button onClick={() => dispatch(increment())} >+</button>
-            <button onClick={() => dispatch(decrement())}>-</button>
-
-        </div>
+    return (
+        <>
+        <Header/>
+        <ToastContainer/>
+        <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path='/add' element={<Add/>} />
+            <Route path='/edit/:id' element={<Edit/>} />
+        </Routes>
+        </>
     )
 }
 
