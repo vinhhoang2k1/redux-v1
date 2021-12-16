@@ -1,22 +1,21 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
-
-import {ToastContainer, } from 'react-toastify'
-import Home from './page/Home'
-import  Edit from './page/Edit'
 import Header from './components/Header'
-import Add from './page/Add'
+
+import ProductList from './components/ProductList'
+import ProductDetail from './components/ProductDetail'
+import Cart from './components/Cart'
+import './app.css'
 function App() {
     return (
         <>
-        <Header/>
-        <ToastContainer/>
-        <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/add' element={<Add/>} />
-            <Route path='/edit/:id' element={<Edit/>} />
-        </Routes>
-        </>
+            <Header/>
+            <Routes>
+                <Route path='/' element={<ProductList/>}/>
+                <Route path='/product/:productId' element={<ProductDetail/>}/>
+                <Route path="/cart" element={<Cart/>} />
+            </Routes>
+        </> 
     )
 }
 
