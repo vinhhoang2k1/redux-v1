@@ -2,24 +2,29 @@ import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import {selectProduct} from '../redux/actions/productAction'
+import {selectProduct, removeProduct} from '../redux/actions/productAction'
 import {Link} from 'react-router-dom'
 function ProductDetail() {
    const {productId} = useParams()
     const productDetail = useSelector( state => state.selectedProduct)
     const dispatch = useDispatch()
-    const fetchDetailProduct = async ()=> {
+    const fetchDetailProduct = async (id)=> {
         const response = await axios
-        .get(`https://fakestoreapi.com/products/${productId}`)
+        .get(`https://fakestoreapi.com/products/${id}`)
         .catch((err) => console.log('err :',err))
         dispatch(selectProduct(response.data))
     }
    useEffect(() => {
-     fetchDetailProduct()
+       if(productId ){fetchDetailProduct(productId)}
+       return () => {
+           dispatch(removeProduct())
+       }
    }, [productId])
-   console.log(productDetail);
     return (
         <div className='container'>
+            {Object.keys(productDetail).length === 0  ? (
+                <div>loadding....</div> 
+            ):(
             <div className="row justify-content-center">
                 <div className="col-10">
                     <div className="row" style={{Height:'60rem'}}>
@@ -40,6 +45,8 @@ function ProductDetail() {
                     </div>
                 </div>
             </div>
+            )
+            }
         </div>
     )
 }
